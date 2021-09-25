@@ -1,3 +1,13 @@
+import turtle
+import time
+def drawGap():
+    turtle.penup()
+    turtle.fd(10)
+def drawLine(draw):
+    drawGap()
+    turtle.pendown() if draw else turtle.penup()
+    turtle.fd(40)
+    turtle.right(90)
 def drawDight(digit):
     drawLine(True) if digit in [2,3,4,5,6,8,9] else drawLine(False)
     drawLine(True) if digit in [0,1,3,4,5,6,7,8,9] else drawLine(False)
@@ -11,15 +21,27 @@ def drawDight(digit):
     turtle.penup()
     turtle.fd(20)
 def drawDate(date):
+    turtle.pencolor("red")
     for i in date:
-        drawDight(eval(i))
+        if i=='-':
+            turtle.write('年',font=("Arial",36,"normal"))
+            turtle.pencolor("green")
+            turtle.fd(70)
+        elif i=='=':
+            turtle.write('月',font=("Arial",36,"normal"))
+            turtle.pencolor("blue")
+            turtle.fd(70)
+        elif i=='+':
+            turtle.write('日',font=("Arial",36,"normal"))
+        else:
+            drawDight(eval(i))    
 def main():
     turtle.setup(800,350,200,200)
     turtle.penup()
     turtle.fd(-300)
     turtle.pensize(5)
-    turtle.pencolor("purple")
-    drawDate('20181010')
+    drawDate(time.strftime('%Y-%m=%d+',time.gmtime()))
     turtle.hideturtle()
     turtle.done()
 main()
+    
